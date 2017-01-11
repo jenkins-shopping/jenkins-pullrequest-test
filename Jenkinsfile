@@ -9,7 +9,7 @@ node("host-node"){
     try {
         stage("Prepare Environment") {
             stage = "Prepare Environment"
-            git 'git@github.com:DigitalInnovation/customer-contact-service.git'
+            git 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
 
             try {
                 if (commitId != "") {
