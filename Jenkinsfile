@@ -5,7 +5,7 @@ def getCommitId() {
 
 node("host-node"){
     def buildUser = wrap([$class: 'BuildUser']) { env.BUILD_USER }
-    def commitId = getCommitId()
+    // def commitId = getCommitId()
     try {
         stage("Prepare Environment") {
             stage = "Prepare Environment"
