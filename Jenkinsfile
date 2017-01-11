@@ -1,3 +1,8 @@
+def getCommitId() {
+    sh returnStdout: true, 
+       script: "git --no-pager show -s --format='%H'"
+}
+
 node("host-node"){
     def buildUser = wrap([$class: 'BuildUser']) { env.BUILD_USER }
     def commitId = getCommitId()
