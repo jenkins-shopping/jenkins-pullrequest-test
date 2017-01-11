@@ -23,11 +23,11 @@ node("host-node"){
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[
                     $class: 'RelativeTargetDirectory',
-                    relativeTargetDir: "__provision"
+                    relativeTargetDir: ""
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
-                    url: PROVISION_REPO
+                    url: 'jenkins-shopping/jenkins-pullrequest-test'
                 ]]
             ])
         }
