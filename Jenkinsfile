@@ -19,7 +19,7 @@ node("host-node"){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
-                    url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
+                    url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git',
                     refspec: '+refs/pull-requests/*:refs/remotes/origin/pr/*'
                 ]]
             ])
