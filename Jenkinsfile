@@ -5,7 +5,7 @@ def getCommitId() {
 
 node("host-node"){
     def buildUser = wrap([$class: 'BuildUser']) { env.BUILD_USER }
-    // def commitId = getCommitId()
+    def commitId = getCommitId()
     try {
         stage("Prepare Environment") {
             stage = "Prepare Environment"
@@ -24,12 +24,12 @@ node("host-node"){
                     url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
                 ]]
             ])
-            
-            // try {
-            //     if (commitId != "") {
-            //         manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
-            //     }
-            // } catch(err) {}
+
+            try {
+                if (commitId != "") {
+                    manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
+                }
+            } catch(err) {}
 
         }
   
