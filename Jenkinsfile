@@ -11,7 +11,7 @@ node("host-node"){
             stage = "Prepare Environment"
             checkout([
                 $class: 'GitSCM',
-                branches: [[name: 'master']],
+                branches: [[name: '${sha1}']],
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[
                     $class: 'RelativeTargetDirectory',
@@ -20,6 +20,7 @@ node("host-node"){
                 submoduleCfg: [],
                 userRemoteConfigs: [[
                     url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
+                    refspec: '+refs/pull-requests/*:refs/remotes/origin/pr/*'
                 ]]
             ])
             commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
