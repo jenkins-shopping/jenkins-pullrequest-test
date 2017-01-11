@@ -20,7 +20,7 @@ node("host-node"){
                 submoduleCfg: [],
                 userRemoteConfigs: [[
                     url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git',
-                    refspec: '+refs/pull-requests/*:refs/remotes/origin/pr/*'
+                    refspec: '+refs/pull/*:refs/remotes/origin/pr/*'
                 ]]
             ])
             commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
