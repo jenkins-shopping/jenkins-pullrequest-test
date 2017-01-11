@@ -19,7 +19,7 @@ node("host-node"){
 
             checkout([
                 $class: 'GitSCM',
-                branches: [[name: '${sha1}']],
+                branches: [[name: 'master']],
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[
                     $class: 'RelativeTargetDirectory',
