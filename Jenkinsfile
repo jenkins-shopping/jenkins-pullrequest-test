@@ -25,11 +25,11 @@ node("host-node"){
                 ]]
             ])
             
-            try {
-                if (commitId != "") {
-                    manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
-                }
-            } catch(err) {}
+            // try {
+            //     if (commitId != "") {
+            //         manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
+            //     }
+            // } catch(err) {}
 
         }
   
