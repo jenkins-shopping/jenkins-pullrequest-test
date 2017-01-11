@@ -9,13 +9,7 @@ node("host-node"){
     try {
         stage("Prepare Environment") {
             stage = "Prepare Environment"
-            git 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
-
-            try {
-                if (commitId != "") {
-                    manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
-                }
-            } catch(err) {}
+            // git 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
 
             checkout([
                 $class: 'GitSCM',
@@ -27,9 +21,16 @@ node("host-node"){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
-                    url: 'jenkins-shopping/jenkins-pullrequest-test'
+                    url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git'
                 ]]
             ])
+            
+            try {
+                if (commitId != "") {
+                    manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
+                }
+            } catch(err) {}
+
         }
   
     } catch (e) {}
