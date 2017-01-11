@@ -1,3 +1,8 @@
+@NonCPS
+def bash(script) {
+    "#!/bin/bash\n${script}"
+}
+
 node("host-node"){
     def buildUser = wrap([$class: 'BuildUser']) { env.BUILD_USER }
     try {
