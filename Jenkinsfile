@@ -26,7 +26,7 @@ node("host-node"){
             commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
                               returnStdout: true).trim()
             if (commitId) {
-                manager.addShortText(commitId + "\n" + env.sha1, "black", "#FFFFE0", "1px", "grey")
+                manager.addShortText(env.ghprbPullDescription + "\nsha1: " + env.sha1, "black", "#FFFFE0", "1px", "grey")
             }
 
         }
