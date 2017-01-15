@@ -9,10 +9,12 @@ node("host-node"){
         def commitId
         stage("Prepare Environment") {
             commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
-                              returnStdout: true).trim()            
+                              returnStdout: true).trim()  
+            println 'ChangeID: ' + env.CHANGE_ID
+            println 'BRANCH_NAME: ' + env.BRANCH_NAME     
             checkout([
                 $class: 'GitSCM',
-                branches: [[name: commitId]],
+                branches: [[name: env.BRANCH_NAME]],
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[
                     $class: 'RelativeTargetDirectory',
