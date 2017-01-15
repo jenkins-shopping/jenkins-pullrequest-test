@@ -3,15 +3,21 @@ def bash(script) {
     "#!/bin/bash\n${script}"
 }
 
+
+@NonCPS
+def printParams() {
+  env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
+}
+
+
 node("host-node"){
     def buildUser = wrap([$class: 'BuildUser']) { env.BUILD_USER }
     try {
         def commitId
         stage("Prepare Environment") {
 
-            for(e in env){
-              echo e + " is " + ${e}
-            }   
+            printParams()  
+            
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: env.BRANCH_NAME]],
