@@ -32,8 +32,4 @@ node("host-node"){
         }
   
     } catch (e) {}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a395d37a5ba6df85c8994732048006b932ebccaa
