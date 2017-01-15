@@ -12,7 +12,7 @@ node("host-node"){
                               returnStdout: true).trim()            
             checkout([
                 $class: 'GitSCM',
-                branches: [[name: commitId],
+                branches: [[name: commitId]],
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[
                     $class: 'RelativeTargetDirectory',
