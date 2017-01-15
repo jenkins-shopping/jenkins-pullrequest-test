@@ -9,8 +9,9 @@ node("host-node"){
         def commitId
         stage("Prepare Environment") {
 
-            println 'ChangeID: ' + env.CHANGE_ID
-            println 'BRANCH_NAME: ' + env.BRANCH_NAME     
+            for(e in env){
+              echo e + " is " + ${e}
+            }   
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: env.BRANCH_NAME]],
@@ -32,7 +33,7 @@ node("host-node"){
 
             commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
                               returnStdout: true).trim()  
-                                          
+
             if (commitId) {
                 manager.addShortText(env.ghprbPullDescription + "\nsha1: " + env.sha1, "black", "#FFFFE0", "1px", "grey")
             }
