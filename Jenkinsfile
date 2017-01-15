@@ -9,7 +9,8 @@ node("host-node"){
         def commitId
         stage("Prepare Environment") {
             stage = "Prepare Environment"
-            
+            sh(script: 'pwd', returnStdout: true)
+            sh(script: 'ls -la', returnStdout: true)
             def ret = sh(script: 'cat testPR/file2', returnStdout: true)
             println ret
 
