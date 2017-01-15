@@ -8,8 +8,7 @@ node("host-node"){
     try {
         def commitId
         stage("Prepare Environment") {
-            commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
-                              returnStdout: true).trim()  
+
             println 'ChangeID: ' + env.CHANGE_ID
             println 'BRANCH_NAME: ' + env.BRANCH_NAME     
             checkout([
@@ -31,7 +30,9 @@ node("host-node"){
             def ret = sh(script: 'cat testPR/file2', returnStdout: true)
             println ret
 
-            
+            commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
+                              returnStdout: true).trim()  
+                                          
             if (commitId) {
                 manager.addShortText(env.ghprbPullDescription + "\nsha1: " + env.sha1, "black", "#FFFFE0", "1px", "grey")
             }
