@@ -17,7 +17,7 @@ node("host-node"){
         stage("Prepare Environment") {
 
             printParams()  
-            dir('testPR') {
+            dir {
                checkout scm
             } 
             // checkout([
