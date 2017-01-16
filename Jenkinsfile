@@ -17,7 +17,9 @@ node("host-node"){
         stage("Prepare Environment") {
 
             printParams()  
-            checkout scm
+            dir('testPR') {
+               checkout scm
+            } 
             // checkout([
             //     $class: 'GitSCM',
             //     branches: [[name: env.BRANCH_NAME]],
