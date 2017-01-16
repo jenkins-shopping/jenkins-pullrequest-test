@@ -17,12 +17,12 @@ node("host-node"){
         stage("Prepare Environment") {
 
             printParams()  
-            dir('./'){
+            dir('checkout_folder'){
               checkout scm
             }
             println sh(script: 'pwd', returnStdout: true)
             println sh(script: 'ls -la', returnStdout: true)
-            def ret = sh(script: 'cat testPR/file2', returnStdout: true)
+            def ret = sh(script: 'cat checkout_folder/testPR/file2', returnStdout: true)
             println ret
 
             commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
