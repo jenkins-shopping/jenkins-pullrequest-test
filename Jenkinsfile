@@ -17,7 +17,7 @@ node("host-node"){
         stage("Prepare Environment") {
 
             printParams()  
-            dir(''){
+            dir('./'){
               checkout scm
             }
             println sh(script: 'pwd', returnStdout: true)
