@@ -17,22 +17,9 @@ node("host-node"){
         stage("Prepare Environment") {
 
             printParams()  
-            checkout scm
-             
-            // checkout([
-            //     $class: 'GitSCM',
-            //     branches: [[name: env.BRANCH_NAME]],
-            //     doGenerateSubmoduleConfigurations: false,
-            //     extensions: [[
-            //         $class: 'RelativeTargetDirectory',
-            //         relativeTargetDir: ""
-            //     ]],
-            //     submoduleCfg: [],
-            //     userRemoteConfigs: [[
-            //         url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git',
-            //         refspec: '+refs/pull/*:refs/remotes/origin/pr/*'
-            //     ]]
-            // ])
+            dir(){
+              checkout scm
+            }
             println sh(script: 'pwd', returnStdout: true)
             println sh(script: 'ls -la', returnStdout: true)
             def ret = sh(script: 'cat testPR/file2', returnStdout: true)
