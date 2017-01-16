@@ -38,6 +38,12 @@ node("host-node"){
                         ]
                     ]
                 )
+                step([$class: 'GitHubCommitStatusSetter',
+                  contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: 'Test Context'],
+                  statusResultSource: [$class: 'ConditionalStatusResultSource',
+                                 results: [[$class: 'AnyBuildResult',
+                                           message: 'test message',
+                                           state: 'SUCCESS']]]])
 
                 def commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
                       returnStdout: true).trim()  
