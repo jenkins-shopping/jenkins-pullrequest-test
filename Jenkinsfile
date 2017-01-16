@@ -38,7 +38,7 @@ node("host-node"){
                         ]
                     ]
                 )
-                
+
                 def commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
                       returnStdout: true).trim()  
 
@@ -50,5 +50,5 @@ node("host-node"){
 
         }
   
-    } catch (e) {}
+    } catch (e) {throw e}
 }
