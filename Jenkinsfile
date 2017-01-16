@@ -20,18 +20,20 @@ node("host-node"){
 
             printParams()  
             dir(workDir){
-              checkout scm
-              commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
-                  returnStdout: true).trim() 
+                checkout scm
+
+                println sh(script: 'pwd', returnStdout: true)
+                println sh(script: 'ls -la', returnStdout: true)
+                def ret = sh(script: "cat testPR/file2", returnStdout: true)
+                println ret
+
+                commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
+                      returnStdout: true).trim()      
+                if (commitId) {
+                    manager.addShortText(env.ghprbPullDescription + "\nsha1: " + env.sha1, "black", "#FFFFE0", "1px", "grey")
+                }              
             }
-            println sh(script: 'pwd', returnStdout: true)
-            println sh(script: 'ls -la', returnStdout: true)
-            def ret = sh(script: "cat checkout_folder/testPR/file2', returnStdout: true)
-            println ret
- 
-            if (commitId) {
-                manager.addShortText(env.ghprbPullDescription + "\nsha1: " + env.sha1, "black", "#FFFFE0", "1px", "grey")
-            }
+
 
         }
   
