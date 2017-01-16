@@ -22,7 +22,7 @@ node("host-node"){
             dir(workDir){
                 checkout scm
 
-                println sh(script: "cat testPR/file2", returnStdout: true)
+                // println sh(script: "cat testPR/file2", returnStdout: true)
 
                 properties properties: [pipelineTriggers([]), [$class: 'GithubProjectProperty', displayName: 'Jenkins']]
 
