@@ -18,7 +18,7 @@ node("host-node"){
 
         stage("Prepare Environment") {
 
-            // printParams()  
+            // printParams()
             dir(workDir){
                 checkout scm
 
@@ -26,13 +26,13 @@ node("host-node"){
 
                 properties properties: [pipelineTriggers([]), [$class: 'GithubProjectProperty', displayName: 'Jenkins']]
 
-                step([$class: 'GitHubCommitStatusSetter', 
+                step([$class: 'GitHubCommitStatusSetter',
                     statusResultSource: [
-                        $class: 'ConditionalStatusResultSource', 
+                        $class: 'ConditionalStatusResultSource',
                         results: [[
-                            $class: 'BetterThanOrEqualBuildResult', 
-                            message: 'Build success', 
-                            result: 'SUCCESS', 
+                            $class: 'BetterThanOrEqualBuildResult',
+                            message: 'Build success',
+                            result: 'SUCCESS',
                             state: 'SUCCESS'
                             ]]
                         ]
@@ -46,14 +46,12 @@ node("host-node"){
                                            state: 'SUCCESS']]]])
 
                 def commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
-                      returnStdout: true).trim()  
+                      returnStdout: true).trim()
 
                 if (commitId) {
                     manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
-                }              
+                }
             }
-
-
         }
     } catch (e) {throw e}
 }
