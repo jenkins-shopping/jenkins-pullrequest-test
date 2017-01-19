@@ -17,23 +17,40 @@ node("host-node"){
         def workDir = 'checkout_folder'
 
         stage("Prepare Environment") {
-
-            // printParams()  
+            // printParams()
             dir(workDir){
                 checkout scm
 
-                println sh(script: "cat testPR/file2", returnStdout: true)
+                // println sh(script: "cat testPR/file2", returnStdout: true)
+
+                properties properties: [pipelineTriggers([]), [$class: 'GithubProjectProperty', displayName: 'Jenkins']]
+
+                step([$class: 'GitHubCommitStatusSetter',
+                    statusResultSource: [
+                        $class: 'ConditionalStatusResultSource',
+                        results: [[
+                            $class: 'BetterThanOrEqualBuildResult',
+                            message: 'Build success',
+                            result: 'SUCCESS',
+                            state: 'SUCCESS'
+                            ]]
+                        ]
+                    ]
+                )
+                step([$class: 'GitHubCommitStatusSetter',
+                  contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: 'Test Context'],
+                  statusResultSource: [$class: 'ConditionalStatusResultSource',
+                                 results: [[$class: 'AnyBuildResult',
+                                           message: 'test message',
+                                           state: 'SUCCESS']]]])
 
                 def commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
-                      returnStdout: true).trim()  
+                      returnStdout: true).trim()
 
                 if (commitId) {
                     manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
-                }              
+                }
             }
-
-
         }
-  
-    } catch (e) {}
+    } catch (e) {throw e}
 }
