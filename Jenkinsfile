@@ -3,34 +3,37 @@ def bash(script) {
     "#!/bin/bash\n${script}"
 }
 
+
+@NonCPS
+def printParams() {
+  env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
+}
+
+
 node("host-node"){
     def buildUser = wrap([$class: 'BuildUser']) { env.BUILD_USER }
     try {
-        def commitId
+
+        def workDir = 'checkout_folder'
+
         stage("Prepare Environment") {
-            stage = "Prepare Environment"
-            checkout([
-                $class: 'GitSCM',
-                branches: [[name: '${sha1}']],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [[
-                    $class: 'RelativeTargetDirectory',
-                    relativeTargetDir: ""
-                ]],
-                submoduleCfg: [],
-                userRemoteConfigs: [[
-                    url: 'git@github.com:jenkins-shopping/jenkins-pullrequest-test.git',
-                    refspec: '+refs/pull/*:refs/remotes/origin/pr/*'
-                ]]
-            ])
-            commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
-                              returnStdout: true).trim()
-            if (commitId) {
-                manager.addShortText(env.ghprbPullDescription + "\nsha1: " + env.sha1, "black", "#FFFFE0", "1px", "grey")
+
+            // printParams()  
+            dir(workDir){
+                checkout scm
+
+                println sh(script: "cat testPR/file2", returnStdout: true)
+
+                def commitId = sh(script: bash("git --no-pager show -s --format='%H'"),
+                      returnStdout: true).trim()  
+
+                if (commitId) {
+                    manager.addShortText(commitId, "black", "#FFFFE0", "1px", "grey")
+                }              
             }
+
 
         }
   
     } catch (e) {}
 }
-  
