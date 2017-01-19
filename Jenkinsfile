@@ -17,7 +17,6 @@ node("host-node"){
         def workDir = 'checkout_folder'
 
         stage("Prepare Environment") {
-
             // printParams()
             dir(workDir){
                 checkout scm
